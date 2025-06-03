@@ -1,10 +1,16 @@
-import { TurnoServicio } from 'src/module/turno/entities/turno.servicio.entity';
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { TurnoServicio } from 'src/module/turno/domain/entities/turno.servicio.entity';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  DeleteDateColumn,
+} from 'typeorm';
 
 @Entity({ schema: 'agua_santa', name: 'servicio' })
 export class Servicio {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column({ length: 100 })
   nombre: string;
@@ -20,6 +26,9 @@ export class Servicio {
 
   @Column({ type: 'timestamp', name: 'ultima_actualizacion', nullable: true })
   ultimaActualizacion: Date;
+
+  @DeleteDateColumn()
+  deleted: Date;
 
   @OneToMany(() => TurnoServicio, (turnoServicio) => turnoServicio.servicio)
   turnoServicios: TurnoServicio[];

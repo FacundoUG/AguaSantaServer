@@ -1,5 +1,3 @@
-import { Clienta } from 'src/module/clienta/entities/clienta.entity';
-import { Manicurista } from 'src/module/manicuristas/entities/manicurista.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -7,16 +5,22 @@ import {
   ManyToOne,
   OneToMany,
   CreateDateColumn,
+  DeleteDateColumn,
 } from 'typeorm';
+import { Clienta } from 'src/module/clienta/domain/entities/clienta.entity';
+import { Manicurista } from 'src/module/manicurista/domain/entities/manicurista.entity';
 import { TurnoServicio } from './turno.servicio.entity';
 
 @Entity({ schema: 'agua_santa', name: 'turno' })
 export class Turno {
-  @PrimaryGeneratedColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-  @Column({ type: 'timestamp', name: 'dia_horario' })
-  diaHorario: Date;
+  @Column({ type: 'timestamp', name: 'incio_turno' })
+  incio_turno: Date;
+
+  @Column({ type: 'timestamp', name: 'final_turno' })
+  final_turno: Date;
 
   @ManyToOne(() => Clienta, (clienta) => clienta.turnos)
   clienta: Clienta;
@@ -33,9 +37,11 @@ export class Turno {
   @CreateDateColumn({ name: 'creado_en' })
   creadoEn: Date;
 
+  @DeleteDateColumn()
+  deleted: Date;
+
   @OneToMany(() => TurnoServicio, (turnoServicio) => turnoServicio.turno, {
     cascade: true,
   })
   turnoServicios: TurnoServicio[];
 }
-
