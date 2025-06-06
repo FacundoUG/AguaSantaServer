@@ -1,12 +1,13 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { IManicuristaRepository } from '../../domain/repositories/manicurista.repository';
 import { Manicurista } from '../../domain/entities/manicurista.entity';
 import { Repository, UpdateResult } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class ManicuristaDatabaseRepository implements IManicuristaRepository {
   constructor(
-    @Inject(Manicurista)
+    @InjectRepository(Manicurista)
     private readonly manicuristaRepository: Repository<Manicurista>,
   ) {}
 

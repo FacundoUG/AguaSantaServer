@@ -1,14 +1,15 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ITurnoServicioRepository } from '../../domain/repositories/turno.servicio.repository';
 import { TurnoServicio } from '../../domain/entities/turno.servicio.entity';
 import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class TurnoServicioDatabaseRepository
   implements ITurnoServicioRepository
 {
   constructor(
-    @Inject(TurnoServicio)
+    @InjectRepository(TurnoServicio)
     private readonly turnoServicioRepository: Repository<TurnoServicio>,
   ) {}
 
