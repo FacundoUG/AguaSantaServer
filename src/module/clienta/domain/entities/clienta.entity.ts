@@ -18,13 +18,10 @@ export class Clienta {
   @Column({ length: 50, nullable: true })
   telefono: string;
 
-  @Column({ default: false })
-  baneada: boolean;
-
   @Column({ type: 'timestamp', name: 'ultimo_turno', nullable: true })
   ultimoTurno: Date;
 
-  @DeleteDateColumn()
+  @DeleteDateColumn({ nullable: true })
   deleted: Date;
 
   @OneToMany(() => Turno, (turno) => turno.clienta)

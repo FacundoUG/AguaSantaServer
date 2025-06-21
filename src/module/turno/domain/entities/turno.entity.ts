@@ -6,6 +6,7 @@ import {
   OneToMany,
   CreateDateColumn,
   DeleteDateColumn,
+  JoinColumn,
 } from 'typeorm';
 import { Clienta } from 'src/module/clienta/domain/entities/clienta.entity';
 import { Manicurista } from 'src/module/manicurista/domain/entities/manicurista.entity';
@@ -23,9 +24,11 @@ export class Turno {
   final_turno: Date;
 
   @ManyToOne(() => Clienta, (clienta) => clienta.turnos)
+  @JoinColumn({ name: 'clienta_id' })
   clienta: Clienta;
 
   @ManyToOne(() => Manicurista, (manicurista) => manicurista.turnos)
+  @JoinColumn({ name: 'manicurista_id' })
   manicurista: Manicurista;
 
   @Column({ length: 100, default: 'PENDIENTE' })
